@@ -1,19 +1,33 @@
 const express = require('express');
 const path = require('path');
+const { port, dbPath, rootDir } = require('./src/config');
+const { initDatabase } = require('./src/db/connection');
+const pageRoutes = require('./src/routes/pages');
+const apiV1Routes = require('./src/routes/api/v1');
+
 const app = express();
 
-const authRoutes = require('./routes/auth');
-const gameRoutes = require('./routes/games');
-
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(rootDir, 'public')));
 
-// Usa as rotas modularizadas
-app.use('/api', authRoutes);
-app.use('/api/play', gameRoutes);
+app.use(pageRoutes);
+app.use('/api/v1', apiV1Routes);
 
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`✅ Servidor rodando em http://localhost:${PORT}`);
-    console.log(`🗄️  Banco de Dados SQLite (afeabet.db) pronto.`);
+app.use((req, res) => {
+    if (req.path.startsWith('/api/')) {
+        return res.status(404).json({ error: 'Rota de API não encontrada.' });
+    }
+    res.status(404).sendFile(path.join(rootDir, 'views', '404.html'));
 });
+
+initDatabase()
+    .then(() => {
+        app.listen(port, () => {
+            console.log(`Servidor: http://localhost:${port}`);
+            console.log(`Banco SQLite: ${path.resolve(dbPath)}`);
+        });
+    })
+    .catch((err) => {
+        console.error('Falha ao iniciar banco de dados:', err);
+        process.exit(1);
+    });

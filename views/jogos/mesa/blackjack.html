@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blackjack — Afea.bet</title>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header class="brand-header">
+        <img src="/favicon.png" alt="Logo" class="brand-logo">
+        <div class="brand-title-wrap">
+            <h1>Blackjack 21</h1>
+            <p class="brand-subtitle">Mesa</p>
+        </div>
+    </header>
+
+    <div class="balance-box">R$ <span id="val-balance">0,00</span></div>
+
+    <nav class="site-nav">
+        <a href="/conta">🏠 Conta</a>
+        <a href="/jogos/cassino/fortune-tiger">🐯 Tigre</a>
+        <a href="/jogos/esportes/corrida-cavalos">🐎 Corrida</a>
+        <a href="/jogos/mesa/blackjack" class="active">🃏 Blackjack</a>
+        <a href="/ajuda">❓ Ajuda</a>
+    </nav>
+
+    <main class="container">
+        <h3>Blackjack 21</h3>
+        <div class="bj-table">
+            <div class="bj-box"><p>VOCÊ</p><div id="p-score" class="bj-score">0</div><div id="p-cards" style="font-size:0.8rem"></div></div>
+            <div class="bj-box"><p>CASA</p><div id="d-score" class="bj-score">?</div><div id="d-cards" style="font-size:0.8rem"></div></div>
+        </div>
+        <div id="bj-bet-ui">
+            <label>Aposta: <input type="number" id="bet-bj" value="50" min="1"></label><br>
+            <button class="btn-action" id="btn-bj-start" type="button">DISTRIBUIR</button>
+        </div>
+        <div id="bj-game-ui" class="hidden">
+            <div style="display:flex; gap:10px;">
+                <button class="btn-action" id="btn-bj-hit" type="button" style="background:#3498db;">PEDIR (+)</button>
+                <button class="btn-action" id="btn-bj-stand" type="button" style="background:#e67e22;">PARAR</button>
+            </div>
+        </div>
+    </main>
+
+    <div id="msg"></div>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/common.js"></script>
+    <script src="/js/blackjack.js"></script>
+</body>
+</html>

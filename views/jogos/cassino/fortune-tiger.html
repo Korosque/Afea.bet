@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortune Tiger — Afea.bet</title>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header class="brand-header">
+        <img src="/favicon.png" alt="Logo" class="brand-logo">
+        <div class="brand-title-wrap">
+            <h1>Fortune Tiger</h1>
+            <p class="brand-subtitle">Cassino</p>
+        </div>
+    </header>
+
+    <div class="balance-box">R$ <span id="val-balance">0,00</span></div>
+
+    <nav class="site-nav">
+        <a href="/conta">🏠 Conta</a>
+        <a href="/jogos/cassino/fortune-tiger" class="active">🐯 Tigre</a>
+        <a href="/jogos/esportes/corrida-cavalos">🐎 Corrida</a>
+        <a href="/jogos/mesa/blackjack">🃏 Blackjack</a>
+        <a href="/ajuda">❓ Ajuda</a>
+    </nav>
+
+    <main class="container">
+        <h3>Fortune Tiger</h3>
+        <div class="reels">
+            <div class="reel" id="r1">🐯</div>
+            <div class="reel" id="r2">🐯</div>
+            <div class="reel" id="r3">🐯</div>
+        </div>
+        <label>Aposta: <input type="number" id="bet-slots" value="50" min="1"></label>
+        <button class="btn-action" id="btn-spin" type="button">GIRAR AGORA!</button>
+    </main>
+
+    <div id="msg"></div>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/common.js"></script>
+    <script src="/js/slots.js"></script>
+</body>
+</html>

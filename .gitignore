@@ -3,5 +3,8 @@ node_modules/
 *.log
 npm-debug.log*
 *.db
+*.db-wal
+*.db-shm
 *.sqlite
+data/
 .DS_Store

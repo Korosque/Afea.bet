@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corrida de cavalos — Afea.bet</title>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header class="brand-header">
+        <img src="/favicon.png" alt="Logo" class="brand-logo">
+        <div class="brand-title-wrap">
+            <h1>Corrida de cavalos</h1>
+            <p class="brand-subtitle">Esportes</p>
+        </div>
+    </header>
+
+    <div class="balance-box">R$ <span id="val-balance">0,00</span></div>
+
+    <nav class="site-nav">
+        <a href="/conta">🏠 Conta</a>
+        <a href="/jogos/cassino/fortune-tiger">🐯 Tigre</a>
+        <a href="/jogos/esportes/corrida-cavalos" class="active">🐎 Corrida</a>
+        <a href="/jogos/mesa/blackjack">🃏 Blackjack</a>
+        <a href="/ajuda">❓ Ajuda</a>
+    </nav>
+
+    <main class="container">
+        <h3>Corrida de cavalos</h3>
+        <div class="track" id="race-track"></div>
+        <label>Aposta: <input type="number" id="bet-race" value="50" min="1" style="width:80px"></label>
+        <select id="horse-bet" style="padding:10px; border-radius:10px; border:2px solid #eee; width:150px; margin:8px 0;"></select>
+        <button class="btn-action" id="btn-race" type="button">CORRER!</button>
+    </main>
+
+    <div id="msg"></div>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/common.js"></script>
+    <script src="/js/race.js"></script>
+</body>
+</html>

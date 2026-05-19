@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha conta — Afea.bet</title>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header class="brand-header">
+        <img src="/favicon.png" alt="Logo Afea.bet" class="brand-logo">
+        <div class="brand-title-wrap">
+            <h1>Afea.bet</h1>
+            <p class="brand-subtitle">Lobby da conta</p>
+        </div>
+    </header>
+
+    <div class="balance-box">R$ <span id="val-balance">0,00</span></div>
+
+    <nav class="site-nav" aria-label="Jogos">
+        <a href="/conta" class="active">🏠 Conta</a>
+        <a href="/jogos/cassino/fortune-tiger">🐯 Tigre</a>
+        <a href="/jogos/esportes/corrida-cavalos">🐎 Corrida</a>
+        <a href="/jogos/mesa/blackjack">🃏 Blackjack</a>
+        <a href="/ajuda">❓ Ajuda</a>
+    </nav>
+
+    <main class="container">
+        <h2>Escolha um jogo</h2>
+        <p style="margin-bottom:12px;">Cada jogo tem sua própria página, como em um site real de apostas.</p>
+        <a class="btn-action" style="display:block;text-decoration:none;color:white;" href="/jogos/cassino/fortune-tiger">Fortune Tiger</a>
+        <a class="btn-action" style="display:block;text-decoration:none;color:white;margin-top:8px;" href="/jogos/esportes/corrida-cavalos">Corrida de cavalos</a>
+        <a class="btn-action" style="display:block;text-decoration:none;color:white;margin-top:8px;" href="/jogos/mesa/blackjack">Blackjack 21</a>
+        <button class="btn-action" id="btn-logout" type="button" style="background:#7f8c8d;box-shadow:0 4px 0 #5f6d6e;margin-top:14px;">SAIR</button>
+    </main>
+
+    <div id="msg"></div>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/common.js"></script>
+    <script src="/js/conta.js"></script>
+</body>
+</html>

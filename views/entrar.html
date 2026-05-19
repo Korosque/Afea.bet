@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrar — Afea.bet</title>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header class="brand-header">
+        <img src="/favicon.png" alt="Logo Afea.bet" class="brand-logo">
+        <div class="brand-title-wrap">
+            <h1>Afea.bet</h1>
+            <p class="brand-subtitle">Esse jogo foi feito pra você perder, trouxa kk</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2>Entrar ou criar conta</h2>
+        <form id="login-form">
+            <input type="text" id="user-in" placeholder="Usuário" autocomplete="username" required>
+            <input type="password" id="pass-in" placeholder="Senha" autocomplete="current-password" required>
+            <button class="btn-action" type="submit">ENTRAR / CADASTRAR</button>
+        </form>
+        <p id="auth-err" style="color:red; margin-top:5px; font-size:0.8rem;"></p>
+    </main>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/entrar.js"></script>
+</body>
+</html>
