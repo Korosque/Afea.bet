@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Afea.bet - Oficial</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="brand-header">
+        <img src="favicon.png" alt="Logo Afea.bet" class="brand-logo">
+        <div class="brand-title-wrap">
+            <h1>Afea.bet</h1>
+            <p class="brand-subtitle">Esse jogo foi feito pra você perder, trouxa kk</p>
+        </div>
+    </header>
+
+    <div id="auth-screen" class="container">
+        <h2>Entrar ou Criar Conta</h2>
+        <input type="text" id="user-in" placeholder="Usuário">
+        <input type="password" id="pass-in" placeholder="Senha">
+        <button class="btn-action" onclick="auth()">ENTRAR / CADASTRAR</button>
+        <p id="auth-err" style="color:red; margin-top:5px; font-size:0.8rem;"></p>
+    </div>
+
+    <div id="game-screen" class="hidden" style="width:100%; display:flex; flex-direction:column; align-items:center;">
+        <div class="balance-box">R$ <span id="val-balance">0.00</span></div>
+        <nav>
+            <button class="nav-btn active" onclick="tab('slots', this)">🐯 TIGRE</button>
+            <button class="nav-btn" onclick="tab('roulette', this)">🐎 CORRIDA</button>
+            <button class="nav-btn" onclick="tab('blackjack', this)">🃏 21</button>
+            <button class="nav-btn" onclick="tab('help', this)">❓ AJUDA</button>
+        </nav>
+
+        <div id="tab-slots" class="container tab-content">
+            <h3>Fortune Tiger</h3>
+            <div class="reels"><div class="reel" id="r1">🐯</div><div class="reel" id="r2">🐯</div><div class="reel" id="r3">🐯</div></div>
+            Aposta: <input type="number" id="bet-slots" value="50">
+            <button class="btn-action" id="btn-spin" onclick="playSlots()">GIRAR AGORA!</button>
+        </div>
+
+        <div id="tab-roulette" class="container tab-content hidden">
+            <h3>Corrida de Cavalos</h3>
+            <div class="track">
+                <div class="finish-line"></div>
+                <div class="lane"><span class="horse-name">Maezio</span><div id="h0" class="horse">🐎</div></div>
+                <div class="lane"><span class="horse-name">Jorge</span><div id="h1" class="horse">🐎</div></div>
+                <div class="lane"><span class="horse-name">Hugo</span><div id="h2" class="horse">🐎</div></div>
+                <div class="lane"><span class="horse-name">Vinicius</span><div id="h3" class="horse">🐎</div></div>
+                <div class="lane"><span class="horse-name">Rômulo</span><div id="h4" class="horse">🐎</div></div>
+                <div class="lane"><span class="horse-name">Darlan</span><div id="h5" class="horse">🐎</div></div>
+            </div>
+            Aposta: <input type="number" id="bet-race" value="50" style="width:80px">
+            <select id="horse-bet" style="padding:10px; border-radius:10px; border:2px solid #eee; width:150px;">
+                <option value="0">Maezio</option><option value="1">Jorge</option><option value="2">Hugo</option><option value="3">Vinicius</option><option value="4">Rômulo</option><option value="5">Darlan</option>
+            </select>
+            <button class="btn-action" id="btn-race" onclick="startRace()">CORRER!</button>
+        </div>
+
+        <div id="tab-blackjack" class="container tab-content hidden">
+            <h3>Blackjack 21</h3>
+            <div class="bj-table">
+                <div class="bj-box"><p>VOCÊ</p><div id="p-score" class="bj-score">0</div><div id="p-cards" style="font-size:0.8rem"></div></div>
+                <div class="bj-box"><p>CASA</p><div id="d-score" class="bj-score">?</div><div id="d-cards" style="font-size:0.8rem"></div></div>
+            </div>
+            <div id="bj-bet-ui">
+                Aposta: <input type="number" id="bet-bj" value="50"><br>
+                <button class="btn-action" onclick="startBJ()">DISTRIBUIR</button>
+            </div>
+            <div id="bj-game-ui" class="hidden">
+                <div style="display:flex; gap:10px;">
+                    <button class="btn-action" style="background:#3498db;" onclick="hitBJ()">PEDIR (+)</button>
+                    <button class="btn-action" style="background:#e67e22;" onclick="standBJ()">PARAR</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-help" class="container tab-content hidden">
+            <h3>Ajuda</h3>
+            <div class="help-emoji-wrap">
+                <img class="help-emoji" src="minha-foto.png" alt="Minha foto">
+            </div>
+            <p><strong style="color: red;">Faz o simbolo aí pra mim kkk</strong></p>
+        </div>
+        <div id="msg"></div>
+    </div>
+
+    <audio id="bg-music" src="musica.mp3" autoplay loop controls></audio>
+    <script>
+        // Tenta tocar automaticamente (pode ser bloqueado pelo navegador sem interação do usuário)
+        const bgMusic = document.getElementById('bg-music');
+        bgMusic.volume = 0.25;
+        bgMusic.play().catch(() => {
+            // Se bloquear autoplay, espera ação do usuário
+            console.log('Autoplay bloqueado: aguarde interação do usuário para tocar.');
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
