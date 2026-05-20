@@ -51,3 +51,4 @@ API: prefixo `/api/v1` (ex.: `POST /api/v1/sessao`).
 ## Licença
 
 ISC
+# Afea-Bet
