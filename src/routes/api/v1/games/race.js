@@ -15,8 +15,12 @@ const {
 
 const router = express.Router();
 
+function horseWeight(horse) {
+    return Math.max(1, 1 + horse.streak * 0.3);
+}
+
 function pickWinnerIndex(horses) {
-    const weights = horses.map((h) => Math.max(1, 1 + h.streak * 0.3));
+    const weights = horses.map(horseWeight);
     const totalWeight = weights.reduce((a, b) => a + b, 0);
     let random = Math.random() * totalWeight;
 
@@ -30,13 +34,22 @@ function pickWinnerIndex(horses) {
 router.get('/esportes/corrida-cavalos/cavalos', requireAuth, async (req, res) => {
     try {
         const horses = await horsesRepository.listWithStreaks(getDb());
+        const weights = horses.map(horseWeight);
+        const totalWeight = weights.reduce((a, b) => a + b, 0);
+
         res.json({
-            horses: horses.map((h, index) => ({
-                id: h.id,
-                index,
-                name: h.name,
-                streak: h.streak
-            }))
+            horses: horses.map((h, index) => {
+                const odds = Number((totalWeight / weights[index]).toFixed(2));
+                const chance = Number((weights[index] / totalWeight).toFixed(3));
+                return {
+                    id: h.id,
+                    index,
+                    name: h.name,
+                    streak: h.streak,
+                    odds,
+                    chance
+                };
+            })
         });
     } catch (err) {
         console.error(err);
@@ -69,8 +82,12 @@ router.post('/esportes/corrida-cavalos/apostar', requireAuth, async (req, res) =
             return res.status(400).json({ error: 'Cavalo inválido.' });
         }
 
+        const weights = horses.map(horseWeight);
+        const totalWeight = weights.reduce((a, b) => a + b, 0);
         const winner = pickWinnerIndex(horses);
-        const winCents = winner === selectedHorse ? betCents * 5 : 0;
+        const winCents = winner === selectedHorse
+            ? Math.max(0, Math.floor(betCents * totalWeight / weights[selectedHorse]))
+            : 0;
         const delta = -betCents + winCents;
 
         const result = await withTransaction(db, async () => {

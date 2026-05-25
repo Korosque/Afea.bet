@@ -1,4 +1,5 @@
 let horseNames = [];
+let horseOdds = [];
 
 if (!requireAuthPage()) {
     // redirect handled in requireAuthPage
@@ -15,6 +16,7 @@ async function loadHorses() {
     }
 
     horseNames = data.horses.map((h) => h.name);
+    horseOdds = data.horses.map((h) => h.odds || 1);
     const track = document.getElementById('race-track');
     const select = document.getElementById('horse-bet');
 
@@ -33,7 +35,7 @@ async function loadHorses() {
 
         const option = document.createElement('option');
         option.value = String(horse.index);
-        option.textContent = horse.name;
+        option.textContent = `${horse.name} (${horse.odds.toFixed(2)}x)`;
         select.appendChild(option);
     });
 }
@@ -64,6 +66,7 @@ async function startRace() {
     }
 
     applyBalanceFromResponse(data);
+    setMessage('A corrida começou! Preparando o suspense...', 'info');
 
     const horsesElements = horseNames.map((_, i) => document.getElementById(`h${i}`)).filter(Boolean);
     if (!horsesElements.length) {
@@ -98,12 +101,16 @@ async function startRace() {
                 horsesElements[data.winner].classList.add('winner');
             }
             const name = horseNames[data.winner] || `Cavalo ${data.winner}`;
-            setMessage(
-                `Vencedor: ${name}${data.winAmount > 0 ? ' - VOCÊ GANHOU!' : ' - PERDEU.'}`,
-                data.winAmount > 0 ? 'win' : 'loss'
-            );
-            handleReliefResponse(data);
-            btn.disabled = false;
+            setMessage(`Vencedor: ${name}... calculando prêmio.`, 'info');
+
+            setTimeout(() => {
+                const finalText = data.winAmount > 0
+                    ? `Vencedor: ${name} - VOCÊ GANHOU R$${data.winAmount.toFixed(2)}!`
+                    : `Vencedor: ${name} - PERDEU.`;
+                setMessage(finalText, data.winAmount > 0 ? 'win' : 'loss');
+                handleReliefResponse(data);
+                btn.disabled = false;
+            }, 1400);
         }
     }, 50);
 }
