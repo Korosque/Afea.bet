@@ -1,5 +1,4 @@
 let horseNames = [];
-let horseOdds = [];
 
 if (!requireAuthPage()) {
     // redirect handled in requireAuthPage
@@ -16,7 +15,6 @@ async function loadHorses() {
     }
 
     horseNames = data.horses.map((h) => h.name);
-    horseOdds = data.horses.map((h) => h.odds || 1);
     const track = document.getElementById('race-track');
     const select = document.getElementById('horse-bet');
 
@@ -35,7 +33,7 @@ async function loadHorses() {
 
         const option = document.createElement('option');
         option.value = String(horse.index);
-        option.textContent = `${horse.name} (${horse.odds.toFixed(2)}x)`;
+        option.textContent = horse.name;
         select.appendChild(option);
     });
 }

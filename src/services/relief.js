@@ -1,11 +1,15 @@
 const { initialBalanceCents } = require('../config');
 
 const RELIEF_MESSAGES = [
-    'Vendeu os móveis ganhou 2000',
-    'Vendeu o PS5',
-    'Vendeu um rim',
-    'Pegou empréstimo no Nubank',
-    'Trabalhou um extra e recebeu 2000'
+    'Vendeu droga',
+    'Vendeu o filho',
+    'Roubou a família',
+    'Pegou empréstimo no Nubank e desinstalou o app depois',
+    'Pegou emprestimo com agiota',
+    'Recebeu do governo',
+    'Roubou a prostituta',
+    'Sonegou pensão alimentícia',
+    'Vendeu a alma pro diabo'
 ];
 
 function ensureBrokeRelief(balanceCents) {

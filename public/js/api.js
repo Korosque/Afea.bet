@@ -38,8 +38,8 @@ function renderCookieConsent() {
     banner.className = 'cookie-consent-banner';
     banner.innerHTML = `
         <div class="cookie-consent-content">
-            <p>Você aceita cookies para melhorar sua experiência?</p>
-            <button id="cookie-accept-btn" class="btn-action cookie-accept-btn">Aceitar</button>
+            <p>Vamos roubar seu dados via cookies! </p>
+            <button id="cookie-accept-btn" class="btn-action cookie-accept-btn">Vão se foder</button>
         </div>
     `;
     document.body.appendChild(banner);

@@ -35,7 +35,6 @@ async function startBJ() {
     }
 
     applyBalanceFromResponse(data);
-    handleReliefResponse(data);
     bjState = data;
     renderBJ();
     document.getElementById('bj-bet-ui').classList.add('hidden');
