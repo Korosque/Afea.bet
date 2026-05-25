@@ -1,5 +1,7 @@
 const SESSION_KEY = 'afeabet_session';
 const COOKIE_MAX_AGE_SECONDS = 7 * 24 * 60 * 60;
+const COOKIE_CONSENT_KEY = 'afeabet_cookie_consent';
+const COOKIE_CONSENT_MAX_AGE_SECONDS = 365 * 24 * 60 * 60;
 
 function getCookie(name) {
     const cookieString = document.cookie || '';
@@ -16,6 +18,35 @@ function setCookie(name, value, maxAge = COOKIE_MAX_AGE_SECONDS) {
 function deleteCookie(name) {
     document.cookie = `${encodeURIComponent(name)}=; path=/; max-age=0; SameSite=Lax`;
 }
+
+function hasCookieConsent() {
+    return getCookie(COOKIE_CONSENT_KEY) === 'accepted';
+}
+
+function acceptCookieConsent() {
+    setCookie(COOKIE_CONSENT_KEY, 'accepted', COOKIE_CONSENT_MAX_AGE_SECONDS);
+    const banner = document.getElementById('cookie-consent-banner');
+    if (banner) banner.remove();
+}
+
+function renderCookieConsent() {
+    if (hasCookieConsent() || !document.body) return;
+    if (document.getElementById('cookie-consent-banner')) return;
+
+    const banner = document.createElement('div');
+    banner.id = 'cookie-consent-banner';
+    banner.className = 'cookie-consent-banner';
+    banner.innerHTML = `
+        <div class="cookie-consent-content">
+            <p>Você aceita cookies para melhorar sua experiência?</p>
+            <button id="cookie-accept-btn" class="btn-action cookie-accept-btn">Aceitar</button>
+        </div>
+    `;
+    document.body.appendChild(banner);
+    document.getElementById('cookie-accept-btn').addEventListener('click', acceptCookieConsent);
+}
+
+window.addEventListener('DOMContentLoaded', renderCookieConsent);
 
 function getSession() {
     const rawCookie = getCookie(SESSION_KEY);
