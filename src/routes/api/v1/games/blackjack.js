@@ -110,6 +110,16 @@ router.post('/mesa/blackjack/rodadas/parar', requireAuth, async (req, res) => {
     const db = getDb();
     const session = await blackjackRepository.findByUserId(db, req.user.id);
     if (!session) return res.status(400).json({ error: 'Nenhuma partida ativa.' });
+    // If session is already finished (e.g. player busted), return current state
+    if (session.status !== 'playing') {
+        return res.json({
+            player_hand: session.playerHand.map(c => c.rank),
+            dealer_hand: session.dealerHand.map(c => c.rank),
+            player_score: calculateHandValue(session.playerHand),
+            dealer_score: calculateHandValue(session.dealerHand),
+            status: session.result || session.status
+        });
+    }
 
     while (calculateHandValue(session.dealerHand) < 17) {
         session.dealerHand.push(getRandomCard());
