@@ -6,7 +6,6 @@ function setMessage(text, type = 'info') {
     msgEl.innerText = cleanText;
     if (!cleanText) return;
     msgEl.classList.add('message-pop', 'message-show', `message-${type}`);
-    window.alert(cleanText);
 }
 
 function pulseBalance() {
@@ -39,6 +38,7 @@ function handleReliefResponse(data) {
     const msg = hasMessage ? data.reliefMessage.trim() : 'Ajuda recebida';
     const suffix = hasBonus ? ` (+R$ ${bonus.toFixed(2)})` : '';
     const fullMessage = msg + suffix;
+    alert(fullMessage);
     setMessage(fullMessage, 'info');
     return true;
 }
