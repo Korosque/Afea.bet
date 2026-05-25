@@ -49,10 +49,6 @@ router.post('/mesa/blackjack/rodadas', requireAuth, async (req, res) => {
             return res.status(400).json({ error: 'Sem saldo' });
         }
 
-        const { balanceCents, relief } = await applyBalanceChange(db, userId, -betCents, 'blackjack_start', {
-            bet_cents: betCents
-        });
-
         const session = {
             betCents,
             playerHand: [getCard(), getCard()],
@@ -63,7 +59,7 @@ router.post('/mesa/blackjack/rodadas', requireAuth, async (req, res) => {
         await blackjackRepository.upsertSession(db, userId, session);
 
         res.json({
-            ...buildBalancePayload(balanceCents, relief),
+            ...buildBalancePayload(balance, { balanceCents: balance, bonusCents: 0, message: null }),
             ...sessionPayload(session, true)
         });
     } catch (err) {
@@ -140,12 +136,15 @@ router.post('/mesa/blackjack/rodadas/encerrar', requireAuth, async (req, res) =>
             return res.status(400).json({ error: 'Rodada não finalizada.' });
         }
 
-        const mult = state.result === 'win' ? 2 : state.result === 'draw' ? 1 : 0;
-        const payout = state.betCents * mult;
-        const { balanceCents, relief } = await applyBalanceChange(db, userId, payout, 'blackjack_finish', {
+        const delta = state.result === 'win'
+            ? state.betCents
+            : state.result === 'draw'
+                ? 0
+                : -state.betCents;
+        const { balanceCents, relief } = await applyBalanceChange(db, userId, delta, 'blackjack_finish', {
             result: state.result,
             bet_cents: state.betCents,
-            payout_cents: payout
+            payout_cents: delta
         });
 
         await blackjackRepository.deleteByUserId(db, userId);
