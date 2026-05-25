@@ -33,7 +33,12 @@ router.post('/mesa/blackjack/rodadas', requireAuth, async (req, res) => {
         const userId = req.user.id;
         const existing = await blackjackRepository.findActiveByUserId(db, userId);
         if (existing && existing.status === 'playing') {
-            return res.status(409).json({ error: 'Já existe uma rodada em andamento.' });
+            const balance = await getBalanceCents(db, userId);
+            return res.json({
+                ...buildBalancePayload(balance, { balanceCents: balance, bonusCents: 0, message: null }),
+                ...sessionPayload(existing, true),
+                resumed: true
+            });
         }
 
         const balance = await getBalanceCents(db, userId);
