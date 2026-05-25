@@ -6,6 +6,7 @@ function setMessage(text, type = 'info') {
     msgEl.innerText = cleanText;
     if (!cleanText) return;
     msgEl.classList.add('message-pop', 'message-show', `message-${type}`);
+    window.alert(cleanText);
 }
 
 function pulseBalance() {
