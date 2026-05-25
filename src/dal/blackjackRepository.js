@@ -29,6 +29,28 @@ async function findActiveByUserId(db, userId) {
     };
 }
 
+async function findByUserId(db, userId) {
+    const row = await get(
+        db,
+        `SELECT id, user_id, bet_cents, player_hand, dealer_hand, status, result
+         FROM blackjack_sessions
+         WHERE user_id = ?
+         ORDER BY id DESC
+         LIMIT 1`,
+        [userId]
+    );
+    if (!row) return null;
+    return {
+        id: row.id,
+        userId: row.user_id,
+        betCents: row.bet_cents,
+        playerHand: parseHand(row.player_hand),
+        dealerHand: parseHand(row.dealer_hand),
+        status: row.status,
+        result: row.result
+    };
+}
+
 async function upsertSession(db, userId, session) {
     await run(
         db,
@@ -58,6 +80,7 @@ async function deleteByUserId(db, userId) {
 
 module.exports = {
     findActiveByUserId,
+    findByUserId,
     upsertSession,
     deleteByUserId
 };
