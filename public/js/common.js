@@ -39,7 +39,6 @@ function handleReliefResponse(data) {
     const suffix = hasBonus ? ` (+R$ ${bonus.toFixed(2)})` : '';
     const fullMessage = msg + suffix;
     setMessage(fullMessage, 'info');
-    alert(fullMessage);
     return true;
 }
 
