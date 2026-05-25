@@ -13,7 +13,8 @@ async function findActiveByUserId(db, userId) {
         db,
         `SELECT id, user_id, bet_cents, player_hand, dealer_hand, status, result
          FROM blackjack_sessions
-         WHERE user_id = ?`,
+         WHERE user_id = ?
+           AND status = 'playing'`,
         [userId]
     );
     if (!row) return null;
