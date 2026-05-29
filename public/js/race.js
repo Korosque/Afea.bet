@@ -63,7 +63,6 @@ async function startRace() {
         return;
     }
 
-    applyBalanceFromResponse(data);
     setMessage('A corrida começou! Preparando o suspense...', 'info');
 
     const horsesElements = horseNames.map((_, i) => document.getElementById(`h${i}`)).filter(Boolean);
@@ -106,6 +105,7 @@ async function startRace() {
                     ? `Vencedor: ${name} - VOCÊ GANHOU R$${data.winAmount.toFixed(2)}!`
                     : `Vencedor: ${name} - PERDEU.`;
                 setMessage(finalText, data.winAmount > 0 ? 'win' : 'loss');
+                applyBalanceFromResponse(data);
                 handleReliefResponse(data);
                 btn.disabled = false;
             }, 1400);
